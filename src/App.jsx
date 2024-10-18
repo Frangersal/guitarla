@@ -1,5 +1,9 @@
 // Un Componente es una funcion de Js
+import { useEffect, useState } from "react";
 import Header from "./components/Header";
+import Guitar from "./components/Guitar";
+import { db } from "./data/db";
+
 function App() {
     // Contenido del Componente 
     // Componente es como tener JS y HTML en un solo archivo
@@ -7,260 +11,65 @@ function App() {
     // Componente sirve para ser reutilizable o separar una funcionalidad... O ambas
     // Componente debe tener siempre un return, lo que se muestra en pantalla
     // Para no confundir codigo de JS con CSS es mejor llamar a las 'class' como 'className'
+
+    // -- State --
+    // const [estado, setFuncionEstado] = useState()
+    // const [auth, setAuth] = useState(false) 
+    // const [total, setTotal] = useState([]) 
+    // const [cart, setCart] = useState([]) 
+
+    // Reglas de los hooks
+    // Van en la parte superior de los Componentes
+    // No se deben colocar dentro de condicionales, ni despues de return (Porque marca error cuando se actualiza automaticamente)
+
+    // -- useEffect --
+    // usar para ejecutar cuando cambie algo el componente, en este ejemplo se ejecuta de nuevo al cambiar el auth (la dependencia)
+    // Un hook de forma condicional no es posible, pero dentro de useEffect se puede hacer condiciones
+    // useEffect( () => { 
+    //     if (auth) {
+          
+    //       console.log("Autenticado");
+    //     }
+    //   },[auth])
+
+    // setTimeout(() => {
+    //   setAuth(true)
+    // }, 3000);
+
+    const[data,setData] = useState(db)
+    // asi es si es on una api
+    // useEffect(()=>{
+    //   setData(db)
+    // },[])
+
+    console.log(data);
+    
+    
+// Antes del return solo podemos escribir Sentencias
+// Statements: Instrucción completa que realiza una acción en un programa. (Variables, if, bucle)
+
+
   return (
+    // Dentro del return solo podemos escribir Expresiones 
+    // Expressions: Fragmento de código que produce un valor. (sumas, metodos que retornan algo nuevo, )
     <>
     <Header /> 
 
       <main className="container-xl mt-5">
         <h2 className="text-center">Nuestra Colección</h2>
 
-        <div className="row mt-5">
-          <div className="col-md-6 col-lg-4 my-4 row align-items-center">
-            <div className="col-4">
-              <img
-                className="img-fluid"
-                src="./public/img/guitarra_01.jpg"
-                alt="imagen guitarra"
-              />
-            </div>
-            <div className="col-8">
-              <h3 className="text-black fs-4 fw-bold text-uppercase">Lukather</h3>
-              <p>
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sit
-                quae labore odit magnam in autem nesciunt, amet deserunt
-              </p>
-              <p className="fw-black text-primary fs-3">$299</p>
-              <button type="button" className="btn btn-dark w-100">
-                Agregar al Carrito
-              </button>
-            </div>
-          </div>
+        <div className="row mt-5"> 
+          {data.map((guitar)=>(
+             <Guitar 
+             key = {guitar.id} // siempre hay que pasar una key, un valor unico por cada iteracion, por convencion es el ID
+                guitar={guitar}
+             />
+            //  Se agregan props, en este caso price
 
-          <div className="col-md-6 col-lg-4 my-4 row align-items-center">
-            <div className="col-4">
-              <img
-                className="img-fluid"
-                src="./public/img/guitarra_02.jpg"
-                alt="imagen guitarra"
-              />
-            </div>
-            <div className="col-8">
-              <h3 className="text-black fs-4 fw-bold text-uppercase">SRV</h3>
-              <p>
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sit
-                quae labore odit magnam in autem nesciunt, amet deserunt
-              </p>
-              <p className="fw-black text-primary fs-3">$299</p>
-              <button type="button" className="btn btn-dark w-100 ">
-                Agregar al Carrito
-              </button>
-            </div>
-          </div>
+           ))}
 
-          <div className="col-md-6 col-lg-4 my-4 row align-items-center">
-            <div className="col-4">
-              <img
-                className="img-fluid"
-                src="./public/img/guitarra_03.jpg"
-                alt="imagen guitarra"
-              />
-            </div>
-            <div className="col-8">
-              <h3 className="text-black fs-4 fw-bold text-uppercase">Borland</h3>
-              <p>
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sit
-                quae labore odit magnam in autem nesciunt, amet deserunt
-              </p>
-              <p className="fw-black text-primary fs-3">$299</p>
-              <button type="button" className="btn btn-dark w-100 ">
-                Agregar al Carrito
-              </button>
-            </div>
-          </div>
-
-          <div className="col-md-6 col-lg-4 my-4 row align-items-center">
-            <div className="col-4">
-              <img
-                className="img-fluid"
-                src="./public/img/guitarra_04.jpg"
-                alt="imagen guitarra"
-              />
-            </div>
-            <div className="col-8">
-              <h3 className="text-black fs-4 fw-bold text-uppercase">Vai</h3>
-              <p>
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sit
-                quae labore odit magnam in autem nesciunt, amet deserunt
-              </p>
-              <p className="fw-black text-primary fs-3">$299</p>
-              <button type="button" className="btn btn-dark w-100 ">
-                Agregar al Carrito
-              </button>
-            </div>
-          </div>
-
-          <div className="col-md-6 col-lg-4 my-4 row align-items-center">
-            <div className="col-4">
-              <img
-                className="img-fluid"
-                src="./public/img/guitarra_05.jpg"
-                alt="imagen guitarra"
-              />
-            </div>
-            <div className="col-8">
-              <h3 className="text-black fs-4 fw-bold text-uppercase">Thompson</h3>
-              <p>
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sit
-                quae labore odit magnam in autem nesciunt, amet deserunt
-              </p>
-              <p className="fw-black text-primary fs-3">$299</p>
-              <button type="button" className="btn btn-dark w-100 ">
-                Agregar al Carrito
-              </button>
-            </div>
-          </div>
-
-          <div className="col-md-6 col-lg-4 my-4 row align-items-center">
-            <div className="col-4">
-              <img
-                className="img-fluid"
-                src="./public/img/guitarra_06.jpg"
-                alt="imagen guitarra"
-              />
-            </div>
-            <div className="col-8">
-              <h3 className="text-black fs-4 fw-bold text-uppercase">White</h3>
-              <p>
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sit
-                quae labore odit magnam in autem nesciunt, amet deserunt
-              </p>
-              <p className="fw-black text-primary fs-3">$299</p>
-              <button type="button" className="btn btn-dark w-100 ">
-                Agregar al Carrito
-              </button>
-            </div>
-          </div>
-
-          <div className="col-md-6 col-lg-4 my-4 row align-items-center">
-            <div className="col-4">
-              <img
-                className="img-fluid"
-                src="./public/img/guitarra_07.jpg"
-                alt="imagen guitarra"
-              />
-            </div>
-            <div className="col-8">
-              <h3 className="text-black fs-4 fw-bold text-uppercase">Cobain</h3>
-              <p>
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sit
-                quae labore odit magnam in autem nesciunt, amet deserunt
-              </p>
-              <p className="fw-black text-primary fs-3">$299</p>
-              <button type="button" className="btn btn-dark w-100 ">
-                Agregar al Carrito
-              </button>
-            </div>
-          </div>
-          <div className="col-md-6 col-lg-4 my-4 row align-items-center">
-            <div className="col-4">
-              <img
-                className="img-fluid"
-                src="./public/img/guitarra_08.jpg"
-                alt="imagen guitarra"
-              />
-            </div>
-            <div className="col-8">
-              <h3 className="text-black fs-4 fw-bold text-uppercase">Dale</h3>
-              <p>
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sit
-                quae labore odit magnam in autem nesciunt, amet deserunt
-              </p>
-              <p className="fw-black text-primary fs-3">$299</p>
-              <button type="button" className="btn btn-dark w-100 ">
-                Agregar al Carrito
-              </button>
-            </div>
-          </div>
-          <div className="col-md-6 col-lg-4 my-4 row align-items-center">
-            <div className="col-4">
-              <img
-                className="img-fluid"
-                src="./public/img/guitarra_09.jpg"
-                alt="imagen guitarra"
-              />
-            </div>
-            <div className="col-8">
-              <h3 className="text-black fs-4 fw-bold text-uppercase">Krieger</h3>
-              <p>
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sit
-                quae labore odit magnam in autem nesciunt, amet deserunt
-              </p>
-              <p className="fw-black text-primary fs-3">$299</p>
-              <button type="button" className="btn btn-dark w-100 ">
-                Agregar al Carrito
-              </button>
-            </div>
-          </div>
-          <div className="col-md-6 col-lg-4 my-4 row align-items-center">
-            <div className="col-4">
-              <img
-                className="img-fluid"
-                src="./public/img/guitarra_10.jpg"
-                alt="imagen guitarra"
-              />
-            </div>
-            <div className="col-8">
-              <h3 className="text-black fs-4 fw-bold text-uppercase">Campbell</h3>
-              <p>
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sit
-                quae labore odit magnam in autem nesciunt, amet deserunt
-              </p>
-              <p className="fw-black text-primary fs-3">$299</p>
-              <button type="button" className="btn btn-dark w-100 ">
-                Agregar al Carrito
-              </button>
-            </div>
-          </div>
-          <div className="col-md-6 col-lg-4 my-4 row align-items-center">
-            <div className="col-4">
-              <img
-                className="img-fluid"
-                src="./public/img/guitarra_11.jpg"
-                alt="imagen guitarra"
-              />
-            </div>
-            <div className="col-8">
-              <h3 className="text-black fs-4 fw-bold text-uppercase">Reed</h3>
-              <p>
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sit
-                quae labore odit magnam in autem nesciunt, amet deserunt
-              </p>
-              <p className="fw-black text-primary fs-3">$299</p>
-              <button type="button" className="btn btn-dark w-100 ">
-                Agregar al Carrito
-              </button>
-            </div>
-          </div>
-          <div className="col-md-6 col-lg-4 my-4 row align-items-center">
-            <div className="col-4">
-              <img
-                className="img-fluid"
-                src="./public/img/guitarra_12.jpg"
-                alt="imagen guitarra"
-              />
-            </div>
-            <div className="col-8">
-              <h3 className="text-black fs-4 fw-bold text-uppercase">Hazel</h3>
-              <p>
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sit
-                quae labore odit magnam in autem nesciunt, amet deserunt
-              </p>
-              <p className="fw-black text-primary fs-3">$299</p>
-              <button type="button" className="btn btn-dark w-100 ">
-                Agregar al Carrito
-              </button>
-            </div>
-          </div>
+          {/* Usamos .map porque solo podemos usar expresiones dentro del return, map nos servira para iterar */}
+           
         </div>
       </main>
 
